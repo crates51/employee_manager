@@ -1,0 +1,100 @@
+[
+    {
+        "model": "app.employee",
+        "pk": 1,
+        "fields": {
+            "first_name": "Annmarie",
+            "last_name": "Crooke",
+            "email": "acrooke0@gizmodo.com",
+            "gender": null,
+            "date_of_birth": "1978-09-07",
+            "industry": "Other Specialty Stores",
+            "salary": 180466.37,
+            "years_of_experience": 10
+        }
+    },
+    {
+        "model": "app.employee",
+        "pk": 2,
+        "fields": {
+            "first_name": "Morrie",
+            "last_name": "Lahive",
+            "email": "mlahive1@imdb.com",
+            "gender": null,
+            "date_of_birth": "1948-04-20",
+            "industry": "Diversified Financial Services",
+            "salary": 239640.0,
+            "years_of_experience": 6
+        }
+    },
+    {
+        "model": "app.employee",
+        "pk": 3,
+        "fields": {
+            "first_name": "Matthias",
+            "last_name": "Roden",
+            "email": "mroden2@abc.net.au",
+            "gender": "M",
+            "date_of_birth": "1998-11-30",
+            "industry": "Metal Fabrications",
+            "salary": 139679.79,
+            "years_of_experience": 31
+        }
+    },
+    {
+        "model": "app.employee",
+        "pk": 4,
+        "fields": {
+            "first_name": "Madelin",
+            "last_name": "Domke",
+            "email": "mdomke3@mozilla.com",
+            "gender": null,
+            "date_of_birth": "1979-05-05",
+            "industry": "n/a",
+            "salary": 196786.25,
+            "years_of_experience": 12
+        }
+    },
+    {
+        "model": "app.employee",
+        "pk": 5,
+        "fields": {
+            "first_name": "Thain",
+            "last_name": "Souter",
+            "email": "tsouter4@cisco.com",
+            "gender": "M",
+            "date_of_birth": "2002-08-03",
+            "industry": "n/a",
+            "salary": 140291.87,
+            "years_of_experience": 28
+        }
+    },
+    {
+        "model": "app.employee",
+        "pk": 6,
+        "fields": {
+            "first_name": "Leupold",
+            "last_name": "Dignum",
+            "email": null,
+            "gender": "M",
+            "date_of_birth": "1973-08-02",
+            "industry": "Commercial Banks",
+            "salary": 30132.93,
+            "years_of_experience": 16
+        }
+    },
+    {
+        "model": "app.employee",
+        "pk": 7,
+        "fields": {
+            "first_name": "Maxim",
+            "last_name": "Mackro",
+            "email": "mmackro6@goo.ne.jp",
+            "gender": null,
+            "date_of_birth": "1929-07-25",
+            "industry": "Computer Software: Prepackaged Software",
+            "salary": 89314.84,
+            "years_of_experience": 14
+        }
+    }
+]
