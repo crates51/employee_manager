@@ -49,6 +49,9 @@ class EmployeeList(APIView):
 
 
 class EmployeeDetail(APIView):
+    # add permission to check if user is authenticated
+    permission_classes = [permissions.IsAuthenticated]
+
     def get_object(self, pk):
         '''Helper method for handling errors'''
         try:

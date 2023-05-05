@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  employee_manager:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/code
+    ports:
+      - 8000:8000
+    #env_file:
+      #- employee_manager/.env
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:14.1-alpine
+    restart: always
+    env_file:
+      - employee_manager/.env.db
+    ports:
+      - '5432:5432'
+    volumes: 
+      - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data:
