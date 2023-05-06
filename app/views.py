@@ -27,6 +27,9 @@ class EmployeeList(APIView):
     def get(self, request, *args, **kwargs):
         '''List all the Employees'''
         employees = Employee.objects.all()
+        sort_by = request.GET.get('sort_by')
+        if sort_by:
+            employees = employees.order_by(sort_by).values()
         page_number = request.GET.get('page_nr', 1)
         page_size = request.GET.get('page_size', 5)
         paginator = Paginator(employees, page_size)
