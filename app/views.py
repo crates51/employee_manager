@@ -8,6 +8,7 @@ from .serializers import EmployeeSerializer, UserSerializer
 from rest_framework import viewsets
 from django.contrib.auth.models import User
 from django.http import Http404
+from django.core.paginator import Paginator
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -26,7 +27,11 @@ class EmployeeList(APIView):
     def get(self, request, *args, **kwargs):
         '''List all the Employees'''
         employees = Employee.objects.all()
-        serializer = EmployeeSerializer(employees, many=True)
+        page_number = request.GET.get('page_nr', 1)
+        page_size = request.GET.get('page_size', 5)
+        paginator = Paginator(employees, page_size)
+        page_obj = paginator.get_page(page_number)
+        serializer = EmployeeSerializer(page_obj, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
