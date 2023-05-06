@@ -1,3 +1,4 @@
+import json
 from rest_framework.views import APIView
 from django.http import JsonResponse
 from rest_framework.response import Response
@@ -27,6 +28,9 @@ class EmployeeList(APIView):
     def get(self, request, *args, **kwargs):
         '''List all the Employees'''
         employees = Employee.objects.all()
+        filter = request.GET.get('filter')
+        if filter:
+            employees = filter_data(employees, filter)
         sort_by = request.GET.get('sort_by')
         if sort_by:
             employees = employees.order_by(sort_by).values()
@@ -87,3 +91,12 @@ class EmployeeDetail(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def filter_data(employees, filter):
+    '''
+    Basic filter for employees.
+    Filter parameter has to be of this form {"field": "value"}; e.g. {"first_name": "Leupold"}
+    '''
+    filter_kwargs = json.loads(filter)
+    return employees.filter(**filter_kwargs)
