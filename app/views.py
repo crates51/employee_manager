@@ -1,3 +1,4 @@
+import pandas as pd
 import json
 from rest_framework.views import APIView
 from django.http import JsonResponse
@@ -10,6 +11,7 @@ from rest_framework import viewsets
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.core.paginator import Paginator
+import datetime
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -28,17 +30,21 @@ class EmployeeList(APIView):
     def get(self, request, *args, **kwargs):
         '''List all the Employees'''
         employees = Employee.objects.all()
+
         filter = request.GET.get('filter')
-        if filter:
-            employees = filter_data(employees, filter)
         sort_by = request.GET.get('sort_by')
-        if sort_by:
-            employees = employees.order_by(sort_by).values()
+        statistics = request.GET.get('statistics')
         page_number = request.GET.get('page_nr', 1)
         page_size = request.GET.get('page_size', 5)
+        if filter:
+            employees = filter_data(employees, filter)
+        if sort_by:
+            employees = employees.order_by(sort_by).values()
         paginator = Paginator(employees, page_size)
         page_obj = paginator.get_page(page_number)
         serializer = EmployeeSerializer(page_obj, many=True)
+        if statistics:  # Getting statistics from the "final version" of the response
+            return Response(get_statistics(serializer.data, statistics), status=status.HTTP_200_OK)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
@@ -100,3 +106,36 @@ def filter_data(employees, filter):
     '''
     filter_kwargs = json.loads(filter)
     return employees.filter(**filter_kwargs)
+
+
+def get_statistics(data, statistics):
+    '''
+    Gettings statistics based on the filtered result.
+    Available statistics:
+        AVERAGE_AGE_PER_INDUSTRY = 'Average age per industry'
+        AVERAGE_SALARIES_PER_INDUSTRY = 'Average salaries per industry'
+        AVERAGE_SALARIES_PER_YOE = 'Average salaries per years of experience'
+        TODO: add some more
+    Note: Because i did't undrestand the task clearly i used pandas directly on the database Data.
+    What i would normally do to take these statistics is to create sql query which will directly
+    calculate this statistics inside DB.
+    '''
+
+    result = {}
+    records = pd.DataFrame.from_records(data)
+    records = records[~records["industry"].str.contains("n/a")]  # Clean the industry rows
+    if statistics == 'AVERAGE_AGE_PER_INDUSTRY':
+        records['age'] = records['date_of_birth'].apply(calculate_age)
+        result = records.groupby('industry')['age'].mean().round().astype(int).reset_index().to_dict('records')
+    elif statistics == 'AVERAGE_SALARIES_PER_INDUSTRY':
+        result = records.groupby('industry')['salary'].mean().reset_index().to_dict('records')
+    elif statistics == 'AVERAGE_SALARIES_PER_YOE':
+        result = records.groupby('years_of_experience')['salary'].mean().round().astype(int).reset_index().to_dict('records')
+    return result
+
+
+def calculate_age(born):
+    born = datetime.datetime.strptime(born, "%d/%m/%Y")
+    today = datetime.date.today()
+    age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+    return age
