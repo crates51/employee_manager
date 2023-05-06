@@ -6,7 +6,7 @@
             "first_name": "Annmarie",
             "last_name": "Crooke",
             "email": "acrooke0@gizmodo.com",
-            "gender": null,
+            "gender": "F",
             "date_of_birth": "1978-09-07",
             "industry": "Other Specialty Stores",
             "salary": 180466.37,
@@ -20,7 +20,7 @@
             "first_name": "Morrie",
             "last_name": "Lahive",
             "email": "mlahive1@imdb.com",
-            "gender": null,
+            "gender": "F",
             "date_of_birth": "1948-04-20",
             "industry": "Diversified Financial Services",
             "salary": 239640.0,
@@ -48,7 +48,7 @@
             "first_name": "Madelin",
             "last_name": "Domke",
             "email": "mdomke3@mozilla.com",
-            "gender": null,
+            "gender": "F",
             "date_of_birth": "1979-05-05",
             "industry": "n/a",
             "salary": 196786.25,
@@ -90,7 +90,35 @@
             "first_name": "Maxim",
             "last_name": "Mackro",
             "email": "mmackro6@goo.ne.jp",
-            "gender": null,
+            "gender": "M",
+            "date_of_birth": "1929-07-25",
+            "industry": "Computer Software: Prepackaged Software",
+            "salary": 89314.84,
+            "years_of_experience": 14
+        }
+    },
+    {
+        "model": "app.employee",
+        "pk": 8,
+        "fields": {
+            "first_name": "maxima",
+            "last_name": "Mockro",
+            "email": "mmaximao6@goo.ne.jp",
+            "gender": "F",
+            "date_of_birth": "1929-07-25",
+            "industry": "Computer Software: Prepackaged Software",
+            "salary": 89314.84,
+            "years_of_experience": 14
+        }
+    },
+    {
+        "model": "app.employee",
+        "pk": 9,
+        "fields": {
+            "first_name": "Jolie",
+            "last_name": "Mockro",
+            "email": "mJolie6@goo.ne.jp",
+            "gender": "F",
             "date_of_birth": "1929-07-25",
             "industry": "Computer Software: Prepackaged Software",
             "salary": 89314.84,

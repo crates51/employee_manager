@@ -112,7 +112,7 @@ def get_statistics(data, statistics):
         AVERAGE_AGE_PER_INDUSTRY = 'Average age per industry'
         AVERAGE_SALARIES_PER_INDUSTRY = 'Average salaries per industry'
         AVERAGE_SALARIES_PER_YOE = 'Average salaries per years of experience'
-        TODO: add some more
+        PROPORTION_FEMALE_PER_INDUSTRY = 'Proportion of female employees per industry'
     Note: Because i did't undrestand the task clearly i used pandas directly on the database Data.
     What i would normally do to take these statistics is to create sql query which will directly
     calculate this statistics inside DB.
@@ -128,6 +128,11 @@ def get_statistics(data, statistics):
         result = records.groupby('industry')['salary'].mean().reset_index().to_dict('records')
     elif statistics == 'AVERAGE_SALARIES_PER_YOE':
         result = records.groupby('years_of_experience')['salary'].mean().round().astype(int).reset_index().to_dict('records')
+    elif statistics == 'PROPORTION_FEMALE_PER_INDUSTRY':
+        total_employees = records.groupby('industry')['gender'].count()
+        female_employees = records[records['gender'] == 'F'].groupby('industry')['gender'].count()
+        proportion_female = female_employees / total_employees * 100
+        result = proportion_female.fillna(0).apply(lambda x: f'{x:.0f}%').reset_index().to_dict("records")
     return result
 
 
