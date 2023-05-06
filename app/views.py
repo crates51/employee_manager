@@ -32,7 +32,7 @@ class EmployeeList(APIView):
         sort_by = request.GET.get('sort_by')
         statistics = request.GET.get('statistics')
         page_number = request.GET.get('page_nr', 1)
-        page_size = request.GET.get('page_size', 5)
+        page_size = request.GET.get('page_size', 100)
         if filter:
             employees = filter_data(employees, filter)
         if sort_by:
