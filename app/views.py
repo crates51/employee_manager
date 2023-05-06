@@ -1,17 +1,14 @@
-import pandas as pd
 import json
+import datetime
+import pandas as pd
+from rest_framework import permissions, status, viewsets
 from rest_framework.views import APIView
-from django.http import JsonResponse
 from rest_framework.response import Response
-from rest_framework import status
-from rest_framework import permissions
+from django.contrib.auth.models import User
+from django.core.paginator import Paginator
+from django.http import Http404, JsonResponse
 from .models import Employee
 from .serializers import EmployeeSerializer, UserSerializer
-from rest_framework import viewsets
-from django.contrib.auth.models import User
-from django.http import Http404
-from django.core.paginator import Paginator
-import datetime
 
 
 class UserViewSet(viewsets.ModelViewSet):

@@ -1,7 +1,7 @@
-from rest_framework import serializers
-from .models import Employee
-from django.contrib.auth.models import User
 from datetime import datetime
+from .models import Employee
+from rest_framework import serializers
+from django.contrib.auth.models import User
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):

@@ -1,7 +1,7 @@
-from django.urls import path, include
 from app import urls as employee_urls
-from rest_framework import routers
 from app.views import UserViewSet
+from rest_framework import routers
+from django.urls import path, include
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
